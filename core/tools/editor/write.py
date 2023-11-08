@@ -32,7 +32,9 @@ class WriteCommand:
 
     @staticmethod
     def from_str(command: str) -> "WriteCommand":
-        filepath = command.split(WriteCommand.separator)[0]
+        split = command.split(WriteCommand.separator)
+        filepath = split[1]
+        content = split[2:len(split)]
         return WriteCommand(filepath, command[len(filepath) + 1 :])
 
 
