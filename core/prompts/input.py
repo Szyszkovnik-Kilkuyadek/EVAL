@@ -10,7 +10,7 @@ I can understand, process, and create various types of files.
 EVAL_FORMAT_INSTRUCTIONS = """RESPONSE FORMAT INSTRUCTIONS
 ----------------------------
 
-When responding to me please, please output a response in one of two formats. No explanation is allowed after action input.:
+When responding output a response in one of two formats. No explanation is allowed after action input.:
 
 **Option #1:**
 Use this if you want the human to use a tool.

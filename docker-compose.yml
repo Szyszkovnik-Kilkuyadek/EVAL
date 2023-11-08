@@ -22,34 +22,34 @@ services:
     depends_on:
       - redis
 
-  eval.gpu:
-    container_name: eval.gpu
-    image: eval.gpu
-    build:
-      dockerfile: build/Dockerfile.gpu
-      context: .
-    volumes: # if you want to decrease your model download time, use this.
-      - ../.cache/huggingface/:/root/.cache/huggingface/
-      - ./static/:/app/static/
-      - ./playground/:/app/playground/
-    ports:
-      - "4500:4500"
-      - "6500:6500"
-      - "8000:8000" # eval port
-    environment:
-      - USE_GPU=True
-      - CELERY_BROKER_URL=redis://redis:6379
-    env_file:
-      - .env
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              device_ids: ["1"] # You can choose which GPU to use
-              capabilities: [gpu]
-    depends_on:
-      - redis
+  # eval.gpu:
+  #   container_name: eval.gpu
+  #   image: eval.gpu
+  #   build:
+  #     dockerfile: build/Dockerfile.gpu
+  #     context: .
+  #   volumes: # if you want to decrease your model download time, use this.
+  #     - ../.cache/huggingface/:/root/.cache/huggingface/
+  #     - ./static/:/app/static/
+  #     - ./playground/:/app/playground/
+  #   ports:
+  #     - "4500:4500"
+  #     - "6500:6500"
+  #     - "8000:8000" # eval port
+  #   environment:
+  #     - USE_GPU=True
+  #     - CELERY_BROKER_URL=redis://redis:6379
+  #   env_file:
+  #     - .env
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             device_ids: ["1"] # You can choose which GPU to use
+  #             capabilities: [gpu]
+  #   depends_on:
+  #     - redis
 
   redis:
     image: redis:alpine

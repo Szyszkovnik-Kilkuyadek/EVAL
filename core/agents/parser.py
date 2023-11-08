@@ -5,14 +5,16 @@ from langchain.schema import BaseOutputParser
 
 from core.prompts.input import EVAL_FORMAT_INSTRUCTIONS
 
+regex = r"Action: (.*)[\n]Plan:(.*)[\n]What I Did:(.*)[\n]Action Input:([\s\S]*)"
+
 
 class EvalOutputParser(BaseOutputParser):
     @staticmethod
     def parse_all(text: str) -> Dict[str, str]:
-        regex = r"Action: (.*?)[\n]Plan:(.*)[\n]What I Did:(.*)[\n]Action Input: (.*)"
+        # regex = r"Action: (.*?)[\n]Plan:(.*)[\n]What I Did:(.*)[\n]Action Input: (.*)"
         match = re.search(regex, text, re.DOTALL)
         if not match:
-            raise Exception("parse error")
+            raise Exception(f"no match in: {text}")
 
         action = match.group(1).strip()
         plan = match.group(2)
@@ -30,7 +32,7 @@ class EvalOutputParser(BaseOutputParser):
         return EVAL_FORMAT_INSTRUCTIONS
 
     def parse(self, text: str) -> Dict[str, str]:
-        regex = r"Action: (.*?)[\n]Plan:(.*)[\n]What I Did:(.*)[\n]Action Input: (.*)"
+        # regex = r"Action: (.*?)[\n]Plan:(.*)[\n]What I Did:(.*)[\n]Action Input: (.*)"
         match = re.search(regex, text, re.DOTALL)
         if not match:
             raise Exception("parse error")
